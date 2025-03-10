@@ -2,7 +2,6 @@ package com.practice.student_management.dto;
 
 import com.practice.student_management.entity.ScoreEntity;
 import com.practice.student_management.entity.StudentEntity;
-import jakarta.persistence.*;
 
 import java.util.List;
 
