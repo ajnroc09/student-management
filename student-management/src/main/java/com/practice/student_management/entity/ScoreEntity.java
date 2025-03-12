@@ -5,11 +5,15 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "scores")
 public class ScoreEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
+
 	@Column(name = "score",nullable = false)
 	private double score;
 	@ManyToOne
 	@JoinColumn(name = "student_id", nullable = false)
-	private StudentEntity studentEntity;
+	private StudentEntity studentDTO;
 
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = false)
@@ -27,12 +31,17 @@ public class ScoreEntity {
 		}
 	}
 
-	public StudentEntity getStudentEntity() {
-		return studentEntity;
+	public String getId() {
+		return id;
 	}
 
-	public void setStudentEntity(StudentEntity studentEntity) {
-		this.studentEntity = studentEntity;
+
+	public StudentEntity getStudentEntity() {
+		return studentDTO;
+	}
+
+	public void setStudentEntity(StudentEntity studentDTO) {
+		this.studentDTO = studentDTO;
 	}
 
 	public CourseEntity getCourseEntity() {

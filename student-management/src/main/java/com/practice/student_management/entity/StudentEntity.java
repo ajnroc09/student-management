@@ -8,8 +8,8 @@ import java.util.List;
 @Table(name =  "students")
 public class StudentEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 	@Column(name = "student_name",nullable = false)
 	private String studentName;
 	@Column(name = "dob",nullable = false)
@@ -33,8 +33,6 @@ public class StudentEntity {
 			inverseJoinColumns = {@JoinColumn(name = "course_id")}
 	)
 	private List<CourseEntity> courseEntities;
-//-------------------------------
-
 
 	public List<CourseEntity> getCourseEntities() {
 		return courseEntities;
@@ -44,7 +42,7 @@ public class StudentEntity {
 		this.courseEntities = courseEntities;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 

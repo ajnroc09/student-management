@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "courses")
 public class CourseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	@Column(name = "course_name", nullable = false)
 	private String courseName;

@@ -12,8 +12,8 @@ public class CourseDTO {
 
 	private int numberOfCredit;
 
-	private List<ScoreEntity> scoreEntities;
-	private List<StudentEntity> studentEntities;
+	private List<ScoreDTO> scoreDTOS;
+	private List<StudentDTO> studentDTOS;
 
 	public String getId() {
 		return id;
@@ -39,19 +39,19 @@ public class CourseDTO {
 		this.numberOfCredit = numberOfCredit;
 	}
 
-	public List<ScoreEntity> getScoreEntities() {
-		return scoreEntities;
+	public List<ScoreDTO> getScoreDTOS() {
+		return scoreDTOS;
 	}
 
-	public void setScoreEntities(List<ScoreEntity> scoreEntities) {
-		this.scoreEntities = scoreEntities;
+	public void setScoreDTOS(List<ScoreDTO> scoreDTOS) {
+		this.scoreDTOS = scoreDTOS;
 	}
 
-	public List<StudentEntity> getStudentEntities() {
-		return studentEntities;
+	public List<StudentDTO> getStudentDTOS() {
+		return studentDTOS;
 	}
 
-	public void setStudentEntities(List<StudentEntity> studentEntities) {
-		this.studentEntities = studentEntities;
+	public void setStudentDTOS(List<StudentDTO> studentDTOS) {
+		this.studentDTOS = studentDTOS;
 	}
 }

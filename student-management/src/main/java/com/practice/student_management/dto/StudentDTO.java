@@ -1,36 +1,35 @@
 package com.practice.student_management.dto;
 
-import com.practice.student_management.entity.CourseEntity;
 import com.practice.student_management.entity.ScoreEntity;
 import com.practice.student_management.entity.StudentEntity;
-import jakarta.persistence.*;
 
 import java.util.List;
 
 public class StudentDTO {
-private Long id;
-
+private String id;
 	private String studentName;
-
 	private String dateOfBirth;
-
 	private String email;
-
 	private String phoneNumber;
-
 	private StudentEntity.Gender gender;
-
 	private String address;
+	private CourseDTO courseDTO;
+	private List<ScoreDTO> scoreDTOS;
+	private List<CourseDTO> courseDTOS;
 
-	private List<ScoreEntity> scoreEntities;
+	public CourseDTO getCourseDTO() {
+		return courseDTO;
+	}
 
-	private List<CourseEntity> courseEntities;
+	public void setCourseDTO(CourseDTO courseDTO) {
+		this.courseDTO = courseDTO;
+	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -82,19 +81,19 @@ private Long id;
 		this.address = address;
 	}
 
-	public List<ScoreEntity> getScoreEntities() {
-		return scoreEntities;
+	public List<ScoreDTO> getScoreDTOS() {
+		return scoreDTOS;
 	}
 
-	public void setScoreEntities(List<ScoreEntity> scoreEntities) {
-		this.scoreEntities = scoreEntities;
+	public void setScoreDTOS(List<ScoreDTO> scoreDTOS) {
+		this.scoreDTOS = scoreDTOS;
 	}
 
-	public List<CourseEntity> getCourseEntities() {
-		return courseEntities;
+	public List<CourseDTO> getCourseDTOS() {
+		return courseDTOS;
 	}
 
-	public void setCourseEntities(List<CourseEntity> courseEntities) {
-		this.courseEntities = courseEntities;
+	public void setCourseDTOS(List<CourseDTO> courseDTOS) {
+		this.courseDTOS = courseDTOS;
 	}
 }
