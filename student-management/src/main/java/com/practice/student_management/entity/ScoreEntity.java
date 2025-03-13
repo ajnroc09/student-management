@@ -12,11 +12,11 @@ public class ScoreEntity {
 	@Column(name = "score",nullable = false)
 	private double score;
 	@ManyToOne
-	@JoinColumn(name = "student_id", nullable = false)
-	private StudentEntity studentDTO;
+	@JoinColumn(name = "studentEntity", nullable = false)
+	private StudentEntity studentEntity;
 
 	@ManyToOne
-	@JoinColumn(name = "course_id", nullable = false)
+	@JoinColumn(name = "courseEntity", nullable = false)
 	private CourseEntity courseEntity;
 
 	public double getScore() {
@@ -37,11 +37,11 @@ public class ScoreEntity {
 
 
 	public StudentEntity getStudentEntity() {
-		return studentDTO;
+		return studentEntity;
 	}
 
-	public void setStudentEntity(StudentEntity studentDTO) {
-		this.studentDTO = studentDTO;
+	public void setStudentEntity(StudentEntity studentEntity) {
+		this.studentEntity = studentEntity;
 	}
 
 	public CourseEntity getCourseEntity() {

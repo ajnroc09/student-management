@@ -16,7 +16,6 @@ import com.practice.student_management.repository.StudentRepository;
 import com.practice.student_management.service.StudentService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,12 +35,12 @@ public class StudentServiceImplement implements StudentService {
 	                               StudentMapper studentMapper,
 	                               CourseMapper courseMapper,
 	                               ScoreMapper scoreMapper) {
-		this.studentRepository= studentRepository;
+		this.studentRepository = studentRepository;
 		this.courseRepository = courseRepository;
 		this.scoreRepository = scoreRepository;
-		this.studentMapper=studentMapper;
-		this.courseMapper=courseMapper;
-		this.scoreMapper=scoreMapper;
+		this.studentMapper = studentMapper;
+		this.courseMapper = courseMapper;
+		this.scoreMapper = scoreMapper;
 
 	}
 
@@ -50,11 +49,18 @@ public class StudentServiceImplement implements StudentService {
 	public StudentDTO saveStudent(StudentDTO studentDTO) throws CourseNotFoundException {
 		StudentEntity studentEntity = studentMapper.toEntity(studentDTO);
 
-		CourseEntity courseEntity = courseRepository.findById(studentDTO.getCourseDTO().getId())
-				.orElseThrow(() -> new CourseNotFoundException("Course not found"));
-
-		List<CourseEntity> courseEntities = new ArrayList<>();
-		courseEntities.add(courseEntity);
+		List<CourseEntity> courseEntities = studentDTO.getCourseDTOS().stream()
+				.map(
+						courseDTO -> {
+							try {
+								return courseRepository.findById(courseDTO.getId())
+										.orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseDTO.getId()));
+							} catch (CourseNotFoundException e) {
+								throw new RuntimeException(e);
+							}
+						}
+				)
+				.toList();
 
 		studentEntity.setCourseEntities(courseEntities);
 
@@ -65,30 +71,46 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public StudentDTO updateStudent(String id, StudentDTO studentDTO) throws CourseNotFoundException, StudentNotFoundException {
 		StudentEntity studentEntity = studentRepository.findById(id)
-				.orElseThrow(()->new StudentNotFoundException("Student not found"));
-		studentMapper.updateEntity(studentDTO,studentEntity);
+				.orElseThrow(() -> new StudentNotFoundException("Student not found"));
+		studentMapper.updateEntity(studentDTO, studentEntity);
+		List<CourseEntity> courseEntities = studentDTO.getCourseDTOS().stream()
+				.map(
+						courseDTO -> {
+							try {
+								return courseRepository.findById(courseDTO.getId())
+										.orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseDTO.getId()));
+							} catch (CourseNotFoundException e) {
+								throw new RuntimeException(e);
+							}
+						}
+				)
+				.toList();
+
+		studentEntity.setCourseEntities(courseEntities);
 		studentRepository.save(studentEntity);
 		return studentMapper.toDTO(studentEntity);
 
 	}
+
 	@Override
 	public void deleteStudent(String id) throws StudentNotFoundException {
 		StudentEntity studentEntity = studentRepository.findById(id)
-				.orElseThrow(()->new StudentNotFoundException("Student not found"));
+				.orElseThrow(() -> new StudentNotFoundException("Student not found"));
 		studentRepository.delete(studentEntity);
 	}
-//--------------------------
+
+	//--------------------------
 	@Override
 	public StudentDTO getStudentById(String id) throws StudentNotFoundException {
-		StudentEntity studentEntity=studentRepository.findById(id)
-				.orElseThrow(()->new StudentNotFoundException("Student not found"));
+		StudentEntity studentEntity = studentRepository.findById(id)
+				.orElseThrow(() -> new StudentNotFoundException("Student not found"));
 		com.practice.student_management.dto.StudentDTO studentDTO = studentMapper.toDTO(studentEntity);
 
-		List<CourseDTO> courseDTOS =studentEntity.getCourseEntities().stream()
+		List<CourseDTO> courseDTOS = studentEntity.getCourseEntities().stream()
 				.map(courseMapper::toDTO)
 				.collect(Collectors.toList());
 
-		List<ScoreDTO> scoreDTOS =studentEntity.getScoreEntities().stream()
+		List<ScoreDTO> scoreDTOS = studentEntity.getScoreEntities().stream()
 				.map(scoreMapper::toDTO)
 				.collect(Collectors.toList());
 
@@ -100,7 +122,7 @@ public class StudentServiceImplement implements StudentService {
 
 	@Override
 	public List<StudentDTO> getAllStudents() {
-		List<StudentEntity> studentEntities=studentRepository.findAll();
+		List<StudentEntity> studentEntities = studentRepository.findAll();
 		return studentEntities.stream()
 				.map(studentMapper::toDTO)
 				.collect(Collectors.toList());
@@ -109,7 +131,7 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public List<StudentDTO> getAllStudentsByCourseId(String courseId) throws CourseNotFoundException {
 		CourseEntity courseEntity = courseRepository.findById(courseId)
-				.orElseThrow(()-> new CourseNotFoundException("Course not found"));
+				.orElseThrow(() -> new CourseNotFoundException("Course not found"));
 		return studentRepository.findAllByCourseId(courseEntity.getId())
 				.stream()
 				.map(studentMapper::toDTO)

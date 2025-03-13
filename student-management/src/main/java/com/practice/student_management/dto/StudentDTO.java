@@ -13,17 +13,8 @@ private String id;
 	private String phoneNumber;
 	private StudentEntity.Gender gender;
 	private String address;
-	private CourseDTO courseDTO;
 	private List<ScoreDTO> scoreDTOS;
 	private List<CourseDTO> courseDTOS;
-
-	public CourseDTO getCourseDTO() {
-		return courseDTO;
-	}
-
-	public void setCourseDTO(CourseDTO courseDTO) {
-		this.courseDTO = courseDTO;
-	}
 
 	public String getId() {
 		return id;

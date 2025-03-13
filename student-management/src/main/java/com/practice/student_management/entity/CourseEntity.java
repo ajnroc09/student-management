@@ -15,7 +15,7 @@ public class CourseEntity {
 	@Column(name = "number_of_credit", nullable = false)
 	private int numberOfCredit;
 
-	@OneToMany(mappedBy = "course_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "courseEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ScoreEntity> scoreEntities;
 	//--------------------
 	@ManyToMany(mappedBy = "courseEntities", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

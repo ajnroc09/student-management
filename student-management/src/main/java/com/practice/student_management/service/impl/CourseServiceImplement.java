@@ -14,10 +14,11 @@ import com.practice.student_management.repository.CourseRepository;
 import com.practice.student_management.repository.ScoreRepository;
 import com.practice.student_management.repository.StudentRepository;
 import com.practice.student_management.service.CourseService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class CourseServiceImplement implements CourseService {
 	private final StudentRepository studentRepository;
 	private final CourseRepository courseRepository;

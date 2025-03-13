@@ -15,9 +15,10 @@ import com.practice.student_management.repository.CourseRepository;
 import com.practice.student_management.repository.ScoreRepository;
 import com.practice.student_management.repository.StudentRepository;
 import com.practice.student_management.service.ScoreService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ScoreServiceImplement implements ScoreService {
 	private final StudentRepository studentRepository;
 	private final CourseRepository courseRepository;
@@ -43,15 +44,15 @@ public class ScoreServiceImplement implements ScoreService {
 
 	@Override
 	public ScoreDTO updateScore(ScoreDTO scoreDTO) throws CourseNotFoundException, StudentNotFoundException, ScoreNotFoundException {
-		StudentEntity studentEntity = studentRepository.findById(scoreDTO.getStudentEntity().getId())
+		StudentEntity studentEntity = studentRepository.findById(scoreDTO.getStudentDTO().getId())
 				.orElseThrow(()->new StudentNotFoundException("Student not found"));
-		CourseEntity courseEntity = courseRepository.findById(scoreDTO.getCourseEntity().getId())
+		CourseEntity courseEntity = courseRepository.findById(scoreDTO.getCourseDTO().getId())
 				.orElseThrow(()->new CourseNotFoundException("Course not found"));
 		ScoreEntity scoreEntity=scoreRepository.findById(scoreDTO.getId())
 				.orElseThrow(()->new ScoreNotFoundException("Score not found"));
 		scoreEntity.setScore(scoreDTO.getScore());
 		scoreEntity.setCourseEntity(courseEntity);
-		scoreEntity.setScore(scoreDTO.getScore());
+		scoreEntity.setStudentEntity(studentEntity);
 
 		scoreRepository.save(scoreEntity);
 		return scoreMapper.toDTO(scoreEntity);
@@ -60,9 +61,9 @@ public class ScoreServiceImplement implements ScoreService {
 
 	@Override
 	public ScoreDTO saveScore(ScoreDTO scoreDTO) throws CourseNotFoundException, StudentNotFoundException {
-		StudentEntity studentEntity = studentRepository.findById(scoreDTO.getStudentEntity().getId())
+		StudentEntity studentEntity = studentRepository.findById(scoreDTO.getStudentDTO().getId())
 				.orElseThrow(()->new StudentNotFoundException("Student not found"));
-		CourseEntity courseEntity = courseRepository.findById(scoreDTO.getCourseEntity().getId())
+		CourseEntity courseEntity = courseRepository.findById(scoreDTO.getCourseDTO().getId())
 				.orElseThrow(()->new CourseNotFoundException("Course not found"));
 
 		ScoreEntity scoreEntity = new ScoreEntity();

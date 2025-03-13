@@ -6,9 +6,9 @@ import com.practice.student_management.entity.StudentEntity;
 public class ScoreDTO {
 	private double score;
 	private String id;
-	private StudentEntity studentDTO;
+	private StudentDTO studentDTO;
 
-	private CourseEntity courseEntity;
+	private CourseDTO courseDTO;
 
 	public String getId() {
 		return id;
@@ -22,19 +22,19 @@ public class ScoreDTO {
 		this.score = score;
 	}
 
-	public StudentEntity getStudentEntity() {
+	public StudentDTO getStudentDTO() {
 		return studentDTO;
 	}
 
-	public void setStudentEntity(StudentEntity studentDTO) {
+	public void setStudentDTO(StudentDTO studentDTO) {
 		this.studentDTO = studentDTO;
 	}
 
-	public CourseEntity getCourseEntity() {
-		return courseEntity;
+	public CourseDTO getCourseDTO() {
+		return courseDTO;
 	}
 
-	public void setCourseEntity(CourseEntity courseEntity) {
-		this.courseEntity = courseEntity;
+	public void setCourseEntity(CourseDTO courseDTO) {
+		this.courseDTO = courseDTO;
 	}
 }

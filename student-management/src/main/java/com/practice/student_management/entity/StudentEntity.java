@@ -23,7 +23,7 @@ public class StudentEntity {
 	@Column(name = "address",nullable = false)
 	private String address;
 
-	@OneToMany(mappedBy = "student_id", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "studentEntity", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<ScoreEntity> scoreEntities;
 //-----------------------------
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
