@@ -54,14 +54,13 @@ public class StudentServiceImplement implements StudentService {
 						courseDTO -> {
 							try {
 								return courseRepository.findById(courseDTO.getId())
-										.orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseDTO.getId()));
+										.orElseThrow(() -> new CourseNotFoundException("Course not found"));
 							} catch (CourseNotFoundException e) {
 								throw new RuntimeException(e);
 							}
 						}
 				)
 				.toList();
-
 		studentEntity.setCourseEntities(courseEntities);
 
 		studentRepository.save(studentEntity);
@@ -78,7 +77,7 @@ public class StudentServiceImplement implements StudentService {
 						courseDTO -> {
 							try {
 								return courseRepository.findById(courseDTO.getId())
-										.orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseDTO.getId()));
+										.orElseThrow(() -> new CourseNotFoundException("Course not found"));
 							} catch (CourseNotFoundException e) {
 								throw new RuntimeException(e);
 							}
@@ -87,6 +86,7 @@ public class StudentServiceImplement implements StudentService {
 				.toList();
 
 		studentEntity.setCourseEntities(courseEntities);
+		studentMapper.updateEntity(studentDTO,studentEntity);
 		studentRepository.save(studentEntity);
 		return studentMapper.toDTO(studentEntity);
 

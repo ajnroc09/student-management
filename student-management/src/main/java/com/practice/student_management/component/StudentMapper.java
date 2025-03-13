@@ -1,11 +1,12 @@
 package com.practice.student_management.component;
 
+import com.practice.student_management.dto.StudentDTO;
 import com.practice.student_management.entity.StudentEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StudentMapper {
-	public void updateEntity(com.practice.student_management.dto.StudentDTO dto, StudentEntity entity){
+	public void updateEntity(StudentDTO dto, StudentEntity entity){
 		if(dto==null||entity == null) {
 			return;
 		}
@@ -17,7 +18,7 @@ public class StudentMapper {
 		entity.setGender(dto.getGender());
 
 	}
-	public StudentEntity toEntity(com.practice.student_management.dto.StudentDTO dto) {
+	public StudentEntity toEntity(StudentDTO dto) {
 		if(dto==null){
 			return null;
 		}
@@ -30,11 +31,12 @@ public class StudentMapper {
 		entity.setGender(dto.getGender());
 		return entity;
 	}
-	public com.practice.student_management.dto.StudentDTO toDTO(StudentEntity entity) {
+	public StudentDTO toDTO(StudentEntity entity) {
 		if(entity==null){
 			return null;
 		}
-		com.practice.student_management.dto.StudentDTO dto =  new com.practice.student_management.dto.StudentDTO();
+		StudentDTO dto =  new StudentDTO();
+		dto.setId(entity.getId());
 		dto.setAddress(entity.getAddress());
 		dto.setEmail(entity.getEmail());
 		dto.setDateOfBirth(entity.getDateOfBirth());
